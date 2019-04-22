@@ -5,10 +5,48 @@
 	<artifactId>cloud-api-sdk</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	
+	<name>Real ID Cloud API SDK</name>
+	<description>SDK for Real ID Cloud API that helps you build your own eKYC business flows</description>
+	<url>https://github.com/realid-global/cloud-api-sdk</url>
 
-	<name>cloud-api-sdk</name>
-	<url>http://maven.apache.org</url>
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
+	<scm>
+		<url>https://github.com/realid-global/cloud-api-sdk</url>
+		<connection>git@github.com:realid-global/cloud-api-sdk.git</connection>
+	</scm>
+
+	<organization>
+		<name>Real ID</name>
+		<url>https://www.realid.global</url>
+	</organization>
+	<inceptionYear>2018</inceptionYear>
+
+	<developers>
+		<developer>
+			<id>BMY</id>
+			<name>Benjamin</name>
+			<email>yujunbin@yiqiniu.com</email>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+	
 	<properties>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -40,7 +78,6 @@
 			<scope>test</scope>
 		</dependency>
 		
-
 		<!-- http client -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -67,7 +104,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -77,7 +113,6 @@
 				</configuration>
 				<version>3.8.0</version>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -91,13 +126,6 @@
 				</executions>
 				<version>3.0.1</version>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M3</version>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -114,7 +142,31 @@
 					</execution>
 				</executions>
 			</plugin>
-    
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	
