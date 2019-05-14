@@ -7,8 +7,11 @@ import global.realid.cloud.sdk.bizobj.resp.ChinaDrivingLicenceOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ChinaIdCardBackOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ChinaIdCardFrontOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ContourRecognizeAndCropRespVO;
+import global.realid.cloud.sdk.bizobj.resp.FaceDetectionForIDRespVO;
+import global.realid.cloud.sdk.bizobj.resp.FaceDetectionRespVO;
 import global.realid.cloud.sdk.bizobj.resp.GeneralPassportOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.HongKongIdCardOcrResult;
+import global.realid.cloud.sdk.bizobj.resp.ImageQualityCheckRespVO;
 import global.realid.cloud.sdk.bizobj.resp.IndonesiaIdCardOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.SilentImageVerificationRespVo;
 import global.realid.cloud.sdk.bizobj.resp.SingaporeDrivingLicenceOcrResult;
@@ -80,6 +83,15 @@ public enum ERealIdCloudApis {
 	
 	/** Passport MRZ OCR */
 	A10025("/ocr_api/passport_mrz_recognize", new TypeRef<ResponseVO<GeneralPassportOcrResult>>(){}),
+	
+	/** Image Quality Check */
+	A10026("/image_api/img_quality_check", new TypeRef<ResponseVO<ImageQualityCheckRespVO>>(){}),
+	
+	/** Face Detection for ID */
+	A10027("/identity_api/face_detect", new TypeRef<ResponseVO<FaceDetectionForIDRespVO>>(){}),
+	
+	/** Face Detection */
+	A10028("/identity_api/face_detect_overall", new TypeRef<ResponseVO<FaceDetectionRespVO>>(){}),
 	
 	;
 	

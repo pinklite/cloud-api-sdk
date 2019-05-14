@@ -9,8 +9,11 @@ import global.realid.cloud.sdk.bizobj.resp.ChinaDrivingLicenceOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ChinaIdCardBackOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ChinaIdCardFrontOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ContourRecognizeAndCropRespVO;
+import global.realid.cloud.sdk.bizobj.resp.FaceDetectionForIDRespVO;
+import global.realid.cloud.sdk.bizobj.resp.FaceDetectionRespVO;
 import global.realid.cloud.sdk.bizobj.resp.GeneralPassportOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.HongKongIdCardOcrResult;
+import global.realid.cloud.sdk.bizobj.resp.ImageQualityCheckRespVO;
 import global.realid.cloud.sdk.bizobj.resp.IndonesiaIdCardOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.SilentImageVerificationRespVo;
 import global.realid.cloud.sdk.bizobj.resp.SingaporeDrivingLicenceOcrResult;
@@ -273,6 +276,54 @@ public class CloudApiClient implements RealIdCloudApiClient {
 	@Override
 	public void close() throws IOException {
 		requester.close();
+	}
+
+	@Override
+	public ResponseVO<ImageQualityCheckRespVO> imageQualityCheck(String filePath)
+			throws SocketException, IOException {
+		Map<String, File> fileFields = new HashMap<>();
+		fileFields.put("file", new File(filePath));
+		
+		return multipartFormRequest(ERealIdCloudApis.A10026, fileFields, null);
+	}
+
+	@Override
+	public ResponseVO<FaceDetectionForIDRespVO> faceDetectionForID(String filePath,
+			EYesOrNo returnFaceImage, EYesOrNo returnDetectImage) throws SocketException,
+			IOException {
+		Map<String, File> fileFields = new HashMap<>();
+		fileFields.put("file", new File(filePath));
+		
+		Map<String, String> textFields = new HashMap<>();
+		if (returnFaceImage != null) {
+			textFields.put("returnFaceImage", returnFaceImage.getCode());
+		}
+		if (returnDetectImage != null) {
+			textFields.put("returnDetectImage", returnDetectImage.getCode());
+		}
+		
+		return multipartFormRequest(ERealIdCloudApis.A10027, fileFields, textFields);
+	}
+
+	@Override
+	public ResponseVO<FaceDetectionRespVO> faceDetection(String filePath, Double confidence,
+			EYesOrNo returnFaceImage, EYesOrNo returnDetectImage) throws SocketException,
+			IOException {
+		Map<String, File> fileFields = new HashMap<>();
+		fileFields.put("file", new File(filePath));
+		
+		Map<String, String> textFields = new HashMap<>();
+		if (confidence != null) {
+			textFields.put("confidence", confidence.toString());
+		}
+		if (returnFaceImage != null) {
+			textFields.put("returnFaceImage", returnFaceImage.getCode());
+		}
+		if (returnDetectImage != null) {
+			textFields.put("returnDetectImage", returnDetectImage.getCode());
+		}
+		
+		return multipartFormRequest(ERealIdCloudApis.A10028, fileFields, textFields);
 	}
 	
 }

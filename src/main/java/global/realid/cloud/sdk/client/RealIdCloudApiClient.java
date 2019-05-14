@@ -9,8 +9,11 @@ import global.realid.cloud.sdk.bizobj.resp.ChinaDrivingLicenceOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ChinaIdCardBackOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ChinaIdCardFrontOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.ContourRecognizeAndCropRespVO;
+import global.realid.cloud.sdk.bizobj.resp.FaceDetectionForIDRespVO;
+import global.realid.cloud.sdk.bizobj.resp.FaceDetectionRespVO;
 import global.realid.cloud.sdk.bizobj.resp.GeneralPassportOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.HongKongIdCardOcrResult;
+import global.realid.cloud.sdk.bizobj.resp.ImageQualityCheckRespVO;
 import global.realid.cloud.sdk.bizobj.resp.IndonesiaIdCardOcrResult;
 import global.realid.cloud.sdk.bizobj.resp.SilentImageVerificationRespVo;
 import global.realid.cloud.sdk.bizobj.resp.SingaporeDrivingLicenceOcrResult;
@@ -254,5 +257,43 @@ public interface RealIdCloudApiClient extends Closeable {
 	 * @throws IOException when network I/O problem occurs
 	 */
 	ResponseVO<GeneralPassportOcrResult> passportMrzRecognize(String filePath)
+			throws SocketException, IOException;
+	
+	/**
+	 * Image Quality Check, wrapper for /image_api/img_quality_check
+	 * 
+	 * @param filePath source file path
+	 * @return response object
+	 * @throws SocketException when network connection problem occurs
+	 * @throws IOException when network I/O problem occurs
+	 */
+	ResponseVO<ImageQualityCheckRespVO> imageQualityCheck(String filePath)
+			throws SocketException, IOException;
+	
+	/**
+	 * Face Detection for ID, wrapper for /identity_api/face_detect
+	 * 
+	 * @param filePath source file path
+	 * @param returnFaceImage whether return the detected face image 
+	 * @param returnDetectImage whether return the original image (that may be rotated during process) where the face is detected
+	 * @return response object
+	 * @throws SocketException when network connection problem occurs
+	 * @throws IOException when network I/O problem occurs
+	 */
+	ResponseVO<FaceDetectionForIDRespVO> faceDetectionForID(String filePath, EYesOrNo returnFaceImage, EYesOrNo returnDetectImage)
+			throws SocketException, IOException;
+	
+	/**
+	 * Face Detection, wrapper for /identity_api/face_detect_overall
+	 * 
+	 * @param filePath source file path
+	 * @param confidence confidence threshold, result that has lower confidence than this will be filtered, default value is 0.9
+	 * @param returnFaceImage whether return the detected face images 
+	 * @param returnDetectImage whether return the original image (that may be rotated during process) where the faces is detected
+	 * @return response object
+	 * @throws SocketException when network connection problem occurs
+	 * @throws IOException when network I/O problem occurs
+	 */
+	ResponseVO<FaceDetectionRespVO> faceDetection(String filePath, Double confidence, EYesOrNo returnFaceImage, EYesOrNo returnDetectImage)
 			throws SocketException, IOException;
 }
